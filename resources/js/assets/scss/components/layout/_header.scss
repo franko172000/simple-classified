@@ -1,0 +1,39 @@
+header{
+    @apply container h-20;
+    background: var(--white);
+    .content{
+        @apply container p-6 flex justify-between;
+        ul{
+            @apply flex w-1/4;
+            li{
+                @apply mx-5;
+                a{
+                    @apply flex;
+                    i {
+                        @apply rounded-full block text-center align-middle;
+                        height: 40px;
+                        width: 40px;
+                        line-height: 37px;
+                        background-color: var(--light-white);
+
+                        &:hover{
+                            background-color: var(--primary);
+                            color: var(--white);
+                            -moz-transition: all linear .3s;
+                        }
+                    }
+
+                    img {
+                        @apply h-8;
+                    }
+                    span{
+                        @apply font-bold leading-8 mx-4;
+                    }
+                }
+            }
+        }
+        .search-form{
+            @apply w-2/4 rounded bg-gray-400;
+        }
+    }
+}

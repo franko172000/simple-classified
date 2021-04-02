@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './variables', './base';
+@import './variables', './general';
+
+//layout
+@import '../scss/components/layout/header';
+@import '../scss/components/layout/footer';
+
+//Components
+@import '../scss/components/button';
+@import '../scss/components/carousel';
+
+
+@import './pages/public/home';

@@ -1,0 +1,44 @@
+#home {
+    @apply container;
+    #banner{
+        @apply bg-center object-cover bg-no-repeat bg-cover object-cover object-center block left-0 top-0 w-full relative flex justify-center items-center;
+        background-image: url('../img/banner.jpg');
+        height: 250px;
+        @screen sm {
+            height: 500px;
+        }
+        &::before{
+            @apply absolute w-full h-full;
+            background: linear-gradient(0deg, rgb(0, 68, 187, 0.5), rgb(0, 68, 187, 0.5));
+            content: '';
+            top: 0;
+            left: 0;
+        }
+        .banner-content{
+            @apply block w-4/5 mx-auto mt-5 text-center text-white absolute;
+            @screen sm{
+                @apply w-3/5 mt-0;
+            }
+            h1 {
+                @apply text-2xl;
+                @screen sm{
+                    @apply text-3xl;
+                }
+                @screen md{
+                    @apply text-5xl;
+                }
+                @screen lg{
+                    @apply text-6xl;
+                }
+                text-shadow: 1px 2px 3px rgba(0,0,0,0.3);
+            }
+            p{
+                @apply text-base;
+                @screen sm{
+                    @apply text-2xl;
+                }
+                text-shadow: 1px 2px 3px rgba(0,0,0,0.3);
+            }
+        }
+    }
+}
