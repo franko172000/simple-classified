@@ -41,15 +41,15 @@ class User extends Authenticatable
     ];
 
     public static $rules = [
-        'firstName' => 'required | min:2',
-        'lastName' => 'required|min:2',
+        'firstname' => 'required | min:2',
+        'lastname' => 'required|min:2',
         'email' => 'required|email',
         'password' => 'required'
     ];
 
     public static $messages = [
-        'firstName.required' => 'First name is required',
-        'lastName' => 'Last name is required',
+        'firstname.required' => 'First name is required',
+        'lastname' => 'Last name is required',
         'email' => 'A valid email address is required',
         'password' => 'Paswword is required'
     ];

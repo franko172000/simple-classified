@@ -70,69 +70,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "home" } }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("section", { staticClass: "inner-content popular-listing" }, [
-      _vm._m(1),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "listing" },
-        [
-          _c("listing-card"),
-          _vm._v(" "),
-          _c("listing-card"),
-          _vm._v(" "),
-          _c("listing-card"),
-          _vm._v(" "),
-          _c("listing-card"),
-          _vm._v(" "),
-          _c("listing-card"),
-          _vm._v(" "),
-          _c("listing-card"),
-          _vm._v(" "),
-          _c("listing-card"),
-          _vm._v(" "),
-          _c("listing-card")
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _vm._m(2)
-    ]),
-    _vm._v(" "),
-    _c("section", { staticClass: "inner-content category-listing" }, [
-      _vm._m(3),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "listing" },
-        [
-          _c("category-card"),
-          _vm._v(" "),
-          _c("category-card"),
-          _vm._v(" "),
-          _c("category-card"),
-          _vm._v(" "),
-          _c("category-card"),
-          _vm._v(" "),
-          _c("category-card")
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _vm._m(4)
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("section", { attrs: { id: "banner" } }, [
-      _c("div", { staticClass: "banner-content" }, [
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("banner", { staticClass: "main-banner" }, [
         _c("h1", [_vm._v("You can Buy, Sell, Rent, Book anything from here ")]),
         _vm._v(" "),
         _c("p", [
@@ -146,9 +88,64 @@ var staticRenderFns = [
           { staticClass: "btn btn-default btn-sm my-10", attrs: { href: "#" } },
           [_c("i", { staticClass: "fas fa-eye" }), _vm._v(" Show all ads")]
         )
+      ]),
+      _vm._v(" "),
+      _c("section", { staticClass: "inner-content popular-listing" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "listing" },
+          [
+            _c("listing-card"),
+            _vm._v(" "),
+            _c("listing-card"),
+            _vm._v(" "),
+            _c("listing-card"),
+            _vm._v(" "),
+            _c("listing-card"),
+            _vm._v(" "),
+            _c("listing-card"),
+            _vm._v(" "),
+            _c("listing-card"),
+            _vm._v(" "),
+            _c("listing-card"),
+            _vm._v(" "),
+            _c("listing-card")
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._m(1)
+      ]),
+      _vm._v(" "),
+      _c("section", { staticClass: "inner-content category-listing" }, [
+        _vm._m(2),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "listing" },
+          [
+            _c("category-card"),
+            _vm._v(" "),
+            _c("category-card"),
+            _vm._v(" "),
+            _c("category-card"),
+            _vm._v(" "),
+            _c("category-card"),
+            _vm._v(" "),
+            _c("category-card")
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._m(3)
       ])
-    ])
-  },
+    ],
+    1
+  )
+}
+var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement

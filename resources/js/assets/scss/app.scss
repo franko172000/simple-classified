@@ -2,16 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@import '../../../../node_modules/ant-design-vue/dist/antd.css';
+
 @import './variables', './base';
 @import './variables', './general';
 
 //layout
 @import '../scss/components/layout/header';
 @import '../scss/components/layout/footer';
+@import '../scss/components/layout/auth';
+@import '../scss/components/layout/banner';
 
 //Components
 @import '../scss/components/button';
 @import '../scss/components/carousel';
+@import '../scss/components/nprogress';
 
-
-@import './pages/public/home';

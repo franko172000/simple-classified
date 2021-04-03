@@ -1,0 +1,64 @@
+#auth{
+    @apply container h-screen flex;
+    .bg-section{
+        @apply w-3/5 bg-center object-cover bg-no-repeat bg-cover object-cover object-center block left-0 top-0 relative flex flex-col;
+        
+        &::before{
+            @apply absolute w-full h-full;
+            background: linear-gradient(0deg, rgb(0, 68, 187, 0.5), rgb(0, 68, 187, 0.5));
+            content: '';
+            top: 0;
+            left: 0;
+        }
+
+        .nav{
+            @apply absolute p-10;
+            a{
+                @apply flex;
+                i {
+                    @apply rounded-full block text-2xl text-center align-middle;
+                    height: 60px;
+                    width: 60px;
+                    line-height: 60px;
+                    background-color: var(--light-white);
+
+                    &:hover{
+                        background-color: var(--primary);
+                        color: var(--white);
+                        -moz-transition: all linear .3s;
+                    }
+                }
+            }
+        }
+        .body-text{
+            @apply absolute p-10 my-20 block w-full;
+            top: 30%;
+            h1{
+                @apply text-center text-5xl text-white;
+            }
+            p{
+                @apply text-center text-xl text-white;
+            }
+        }
+    }
+    .form-section{
+        @apply p-10 flex flex-col w-2/5 justify-center;
+        h2{
+            @apply text-center text-4xl font-medium;
+        }
+        .form{
+            form{
+                @apply flex flex-col w-full;
+            }
+        }
+    }
+    .login-bg{
+        background-image: url('../img/login-bg.jpg');
+    }
+    .register-bg{
+        background-image: url('../img/register-bg.jpg');
+    }
+    .auth-section{
+        @apply w-2/5;
+    }
+}

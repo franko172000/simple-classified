@@ -51,4 +51,10 @@ class AuthController extends Controller
 
         return $this->responseCreated("User created");
     }
+
+    public function logout(){
+        $accesToken = auth()->user()->token();
+        $accesToken->revoke();
+        return $this->responseOk([],"User signed out!");
+    }
 }
