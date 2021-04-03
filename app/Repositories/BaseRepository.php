@@ -21,7 +21,9 @@ abstract class BaseRepository {
         return $this->model->create($data);
     }
 
-    protected function paginated($offset, $limit){
+    protected function paginated($page, $limit){
+        $offset = ($page - 1) * $limit;
+        
         return $this->model
         ->offset($offset)
         ->limit($limit);

@@ -17,6 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class,'index']);
 
 Route::get('/{any?}',[
-    'uses'=>'MainController@home',
+    'uses'=>'HomeController@index',
     'where'=> ['any'=> '.*']
 ]);

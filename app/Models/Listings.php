@@ -8,6 +8,10 @@ class Listings extends Model
 {
 
     protected $fillable = [
+        'id',
+        'user_id',
+        'category_id',
+        'location_code',
         'title',
         'description',
         'excerpt',
@@ -24,7 +28,7 @@ class Listings extends Model
     public static $rules = [
         'title'       => 'required|min:2',
         'description' => 'required|min:10',
-        'excerpt'     => 'required|min:10',
+        'excerpt'     => 'required|min:10|max:255',
         'price'       => 'required',
         'photo'       => 'required',
         'currency'    => 'required',
@@ -34,13 +38,15 @@ class Listings extends Model
 
     public static $messages = [
         'title.required' => 'Title is required',
-        'description' => 'Description is required',
-        'excerpt'     => 'Excerpt is required',
-        'price'       => 'Price is required',
-        'photo'       => 'Photo is required',
-        'currency'    => 'Currency is required',
-        'category'    => 'Category is required',
-        'location'    => 'location is required'
+        'description.required' => 'Description is required',
+        'excerpt.required'     => 'Excerpt is required',
+        'excerpt.min'     => 'Excerpt is too short',
+        'excerpt.max'     => 'Excerpt is too long. Maximum character lenght is 255',
+        'price.required'       => 'Price is required',
+        'photo.required'       => 'Photo is required',
+        'currency.required'    => 'Currency is required',
+        'category.required'    => 'Category is required',
+        'location.required'    => 'location is required'
     ];
 
     public function user(){

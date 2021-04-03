@@ -22,8 +22,7 @@ class ListingController extends BaseController
     public function index(Request $request){
         $requestData = $request->all();
 
-        $page = isset($requestDatap['page']) ? $requestDatap['page'] : $this->PAGE_NO;
-        $limit = isset($requestDatap['limit']) ? $requestDatap['page'] : $this->RECORD_LIMIT;
+        [$page,$limit] = $this->getPaginationData($requestData);
 
         $listing = $this->listingService->getListings($limit,$page);
 
@@ -37,8 +36,37 @@ class ListingController extends BaseController
     public function store(ListingRequest $request){
 
         $data = $request->validated();
-        $record = $this->listingService->addListing($data, 1);
+
+        $record = $this->listingService->addListing($data, auth()->user()->id);
 
         return new ListingResource($record);
+    }
+
+    public function listing($slug){
+
+        $record = $this->listingService->getListing($slug);
+
+        return new ListingResource($record);
+    }
+
+    public function userListing(){
+        
+        $record = $this->listingService->getUserListings(auth()->user()->id);
+
+        return new ListingResource($record);
+    }
+
+    public function categoryListing(Request $request,$id){
+        $requestData = $request->all();
+
+        [$page,$limit] = $this->getPaginationData($requestData);
+
+        $listing = $this->listingService->getCategoryListing($id,$limit,$page);
+
+        return ListingResource::collection($listing['data'])
+        ->additional([
+            'total_records' => $listing['total'],
+            'total_returned' => count($listing['data'])
+            ]);
     }
 }

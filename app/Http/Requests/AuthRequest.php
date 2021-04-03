@@ -8,7 +8,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 
-class ListingRequest extends FormRequest
+class AuthRequest extends FormRequest
 {
     use ResponseTrait;
     /**
@@ -28,11 +28,17 @@ class ListingRequest extends FormRequest
      */
     public function rules()
     {
-        return Listings::$rules;
+        return [
+            'email' => 'required | email',
+            'password' => 'required'
+        ];
     }
 
     public function messages()
     {
-        return Listings::$messages;
+        return [
+            'email.required' => 'Email not set',
+            'password.required' => 'Password not set'
+        ];;
     }
 }

@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\Listings;
+use Illuminate\Support\Str;
 
 class ListingRepository extends BaseRepository{
 
@@ -10,7 +11,7 @@ class ListingRepository extends BaseRepository{
         $this->model = $model;
     }
 
-    public function getUserListings(int $userId,int $offset = 0,int $limit = 10){
+    public function getUserListings(int $userId,int $limit = 10, int $offset = 0){
         $data = $this->paginated($offset,$limit)
         ->where('user_id',$userId)
         ->get();
@@ -24,7 +25,25 @@ class ListingRepository extends BaseRepository{
     public function addListing(array $data){
         $record = $this->model->create($data);
         //create slug
-        $record->slug = str_slug($record->title,'-').'-'.$record->id;
-        return $record->save();
+        $record->slug = Str::slug($record->title,'-').'-'.$record->id;
+        $record->save();
+        return $record;
+    }
+
+    public function getListingBySlug(string $slug){
+        $data = $this->model->where('slug',$slug)
+        ->first();
+        return $data;
+    }
+
+    public function getListingByCategory(int $categoryId, int $limit = 10, int $offset = 0){
+        $data = $this->paginated($offset,$limit)
+        ->where('category_id',$categoryId)
+        ->get();
+
+        //get total record count
+        $count = $this->model->where('category_id',$categoryId)->count();
+
+        return ['data' => $data, 'total' => $count];
     }
 }

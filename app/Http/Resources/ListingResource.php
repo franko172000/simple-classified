@@ -28,7 +28,7 @@ class ListingResource extends JsonResource
             'photo' => $this->photo,
             'currency' => $this->currency,
             'slug' => $this->slug,
-            'status' => $this->status,
+            'status' => $this->status ?? 'offline',
             'last_date_online' => $this->last_date_online,
             'last_date_offline' => $this->last_date_offline,
             'posted_at' => $this->created_at

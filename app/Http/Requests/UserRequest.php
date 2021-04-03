@@ -2,15 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Listings;
-use App\Traits\ResponseTrait;
-use Illuminate\Contracts\Validation\Validator;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\ValidationException;
 
-class ListingRequest extends FormRequest
+class UserRequest extends FormRequest
 {
-    use ResponseTrait;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -28,11 +24,16 @@ class ListingRequest extends FormRequest
      */
     public function rules()
     {
-        return Listings::$rules;
+        return User::$rules;
     }
 
+    /**
+     * Get the validation messages that apply to the request.
+     *
+     * @return array
+     */
     public function messages()
     {
-        return Listings::$messages;
+        return User::$messages;
     }
 }

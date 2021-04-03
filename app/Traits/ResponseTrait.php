@@ -25,7 +25,7 @@ trait ResponseTrait{
     }
 
     public function responseValidation(array $errors=[]){
-        return $this->formatResponse(422,"Your request could not be processed",$errors);
+        return $this->formatResponse(422,"Your request could not be processed",[],$errors);
     }
 
     public function responseUnauthorized(string $message, array $errors=[]){
@@ -34,6 +34,10 @@ trait ResponseTrait{
 
     public function responseServerError(string $message, array $errors=[]){
         return $this->formatResponse(500,$message,[],$errors);
+    }
+
+    public function responseGeneral(int $statusCode, string $message, array $errors=[]){
+        return $this->formatResponse($statusCode,$message,[],$errors);
     }
 
     private function formatResponse(int $statusCode, string $message, array $data=[], array $errors=[]){
