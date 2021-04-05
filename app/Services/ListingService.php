@@ -46,7 +46,7 @@ class ListingService {
     }
 
     public function getListings(int $limit=10, int $page = 1){
-        return $this->repository->findPaginated($limit,$page);
+        return $this->repository->getListings($limit,$page);
     }
 
     public function getUserListings(int $userId, int $limit=10, int $page = 1){

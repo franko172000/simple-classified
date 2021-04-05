@@ -104,7 +104,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.form.validateFields(function (err, values) {
         if (!err) {
-          _this.$store.dispatch('user/REGISTER', {
+          _this.$store.dispatch('user/register', {
             payload: values
           });
         }

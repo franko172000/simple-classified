@@ -56,8 +56,8 @@ class ListingController extends BaseController
     public function listing($slug){
 
         $record = $this->listingService->getListing($slug);
-
-        return new ListingResource($record);
+        $listing = new ListingResource($record);
+        return $listing->additional(['user' => $listing->user]);
     }
 
     public function userListing(){

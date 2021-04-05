@@ -353,6 +353,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var resources = '/';
+
+var generateParams = function generateParams(limit, page) {
+  return limit && page ? '?' + new URLSearchParams({
+    limit: limit,
+    page: page
+  }) : '';
+};
+
 var getLocations = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -394,12 +402,12 @@ var getAllCategories = /*#__PURE__*/function () {
   };
 }();
 var getCategories = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(limit, page) {
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            return _context3.abrupt("return", _axios__WEBPACK_IMPORTED_MODULE_1__.default.get(resources + 'categories'));
+            return _context3.abrupt("return", _axios__WEBPACK_IMPORTED_MODULE_1__.default.get(resources + 'categories' + generateParams(limit, page)));
 
           case 1:
           case "end":
@@ -409,7 +417,7 @@ var getCategories = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
-  return function getCategories() {
+  return function getCategories(_x, _x2) {
     return _ref3.apply(this, arguments);
   };
 }();
@@ -429,7 +437,7 @@ var getListingDetail = /*#__PURE__*/function () {
     }, _callee4);
   }));
 
-  return function getListingDetail(_x) {
+  return function getListingDetail(_x3) {
     return _ref4.apply(this, arguments);
   };
 }();
@@ -439,7 +447,7 @@ var getListings = /*#__PURE__*/function () {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            return _context5.abrupt("return", _axios__WEBPACK_IMPORTED_MODULE_1__.default.get(resources + 'listings'));
+            return _context5.abrupt("return", _axios__WEBPACK_IMPORTED_MODULE_1__.default.get(resources + 'listings' + generateParams(limit, page)));
 
           case 1:
           case "end":
@@ -449,7 +457,7 @@ var getListings = /*#__PURE__*/function () {
     }, _callee5);
   }));
 
-  return function getListings(_x2, _x3) {
+  return function getListings(_x4, _x5) {
     return _ref5.apply(this, arguments);
   };
 }();
@@ -547,9 +555,11 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("banner", { staticClass: "inner-banner" }, [
-        _c("h1", [_vm._v("Edit Listing")])
-      ]),
+      _c(
+        "banner",
+        { staticClass: "inner-banner", attrs: { showHomeButton: true } },
+        [_c("h1", [_vm._v("Edit Listing")])]
+      ),
       _vm._v(" "),
       _c(
         "div",

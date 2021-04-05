@@ -19,7 +19,7 @@ export default {
     },
   },
    mounted() {
-    this.$store.dispatch('user/LOAD_CURRENT_ACCOUNT')
+    this.$store.dispatch('user/load_current_account')
     this.$store.dispatch('tmpPhotos/loadTempImages')
   },
   watch: {

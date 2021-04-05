@@ -13,7 +13,7 @@ export default {
     name: '',
     userPhoto: '',
     userEmail: '',
-    authorized: process.env.VUE_APP_AUTHENTICATED || false, // false is default value
+    authorized: false, // false is default value
     loading: false,
     id:''
   },
@@ -74,7 +74,7 @@ export default {
           })
       })
     },
-    REGISTER({ commit, dispatch, rootState }, { payload }) {
+    register({ commit, dispatch, rootState }, { payload }) {
       //const { email, password, name } = payload
       commit('SET_STATE', {
         loading: true,
@@ -97,7 +97,7 @@ export default {
         }
       })
     },
-    LOAD_CURRENT_ACCOUNT({ commit, rootState }) {
+    load_current_account({ commit, rootState }) {
       if(store.get('accessToken')){
         commit('SET_STATE', {
           loading: true,
@@ -116,8 +116,13 @@ export default {
       }
       
     },
-    LOGOUT({ commit, rootState }) {
+    logout({ commit, rootState }) {
       logout().then(() => {
+        store.remove('user');
+        store.remove('accessToken')
+        if(store.get('temp_photos')){
+          store.remove('temp_photos')         
+        }
         commit('SET_STATE', {
           name: '',
           userType: '',
@@ -126,7 +131,7 @@ export default {
           authorized: false,
           loading: false,
         })
-        router.push('/auth/login')
+        router.push('/')
       })
     },
   },

@@ -27,6 +27,7 @@ class ListingResource extends JsonResource
             'price' => $this->price,
             'images' => ListingImageResource::collection($this->images),
             'currency' => $this->currency,
+            'views' => $this->views,
             'slug' => $this->slug,
             'status' => $this->status ?? 'offline',
             'last_date_online' => $this->last_date_online,

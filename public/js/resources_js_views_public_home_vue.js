@@ -56,7 +56,7 @@ __webpack_require__.r(__webpack_exports__);
     getPopularListing: function getPopularListing() {
       var _this = this;
 
-      (0,_services_requests_public__WEBPACK_IMPORTED_MODULE_0__.getListings)().then(function (res) {
+      (0,_services_requests_public__WEBPACK_IMPORTED_MODULE_0__.getListings)(20, 1).then(function (res) {
         _this.listings = res.data.data;
       });
     }
@@ -65,7 +65,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this2 = this;
 
     this.getPopularListing();
-    (0,_services_requests_public__WEBPACK_IMPORTED_MODULE_0__.getAllCategories)().then(function (res) {
+    (0,_services_requests_public__WEBPACK_IMPORTED_MODULE_0__.getCategories)(10, 1).then(function (res) {
       _this2.categories = res.data.data;
     });
   }
@@ -99,6 +99,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var resources = '/';
+
+var generateParams = function generateParams(limit, page) {
+  return limit && page ? '?' + new URLSearchParams({
+    limit: limit,
+    page: page
+  }) : '';
+};
+
 var getLocations = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -140,12 +148,12 @@ var getAllCategories = /*#__PURE__*/function () {
   };
 }();
 var getCategories = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(limit, page) {
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            return _context3.abrupt("return", _axios__WEBPACK_IMPORTED_MODULE_1__.default.get(resources + 'categories'));
+            return _context3.abrupt("return", _axios__WEBPACK_IMPORTED_MODULE_1__.default.get(resources + 'categories' + generateParams(limit, page)));
 
           case 1:
           case "end":
@@ -155,7 +163,7 @@ var getCategories = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
-  return function getCategories() {
+  return function getCategories(_x, _x2) {
     return _ref3.apply(this, arguments);
   };
 }();
@@ -175,7 +183,7 @@ var getListingDetail = /*#__PURE__*/function () {
     }, _callee4);
   }));
 
-  return function getListingDetail(_x) {
+  return function getListingDetail(_x3) {
     return _ref4.apply(this, arguments);
   };
 }();
@@ -185,7 +193,7 @@ var getListings = /*#__PURE__*/function () {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            return _context5.abrupt("return", _axios__WEBPACK_IMPORTED_MODULE_1__.default.get(resources + 'listings'));
+            return _context5.abrupt("return", _axios__WEBPACK_IMPORTED_MODULE_1__.default.get(resources + 'listings' + generateParams(limit, page)));
 
           case 1:
           case "end":
@@ -195,7 +203,7 @@ var getListings = /*#__PURE__*/function () {
     }, _callee5);
   }));
 
-  return function getListings(_x2, _x3) {
+  return function getListings(_x4, _x5) {
     return _ref5.apply(this, arguments);
   };
 }();
@@ -294,21 +302,31 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
-      _c("banner", { staticClass: "main-banner" }, [
-        _c("h1", [_vm._v("You can Buy, Sell, Rent, Book anything from here ")]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "Buy and sell everything from used cars to mobile phones and computers, or search for property, jobs and more in the world."
+      _c(
+        "banner",
+        { staticClass: "main-banner" },
+        [
+          _c("h1", [
+            _vm._v("You can Buy, Sell, Rent, Book anything from here ")
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "Buy and sell everything from used cars to mobile phones and computers, or search for property, jobs and more in the world."
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              staticClass: "btn btn-default btn-sm my-10",
+              attrs: { to: "/listings" }
+            },
+            [_c("i", { staticClass: "fas fa-eye" }), _vm._v(" Show all ads ")]
           )
-        ]),
-        _vm._v(" "),
-        _c(
-          "a",
-          { staticClass: "btn btn-default btn-sm my-10", attrs: { href: "#" } },
-          [_c("i", { staticClass: "fas fa-eye" }), _vm._v(" Show all ads")]
-        )
-      ]),
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("section", { staticClass: "inner-content popular-listing" }, [
         _vm._m(0),
@@ -325,11 +343,25 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _vm._m(1)
+        _c(
+          "div",
+          { staticClass: "flex justify-center" },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-primary my-10",
+                attrs: { to: "/listings" }
+              },
+              [_vm._v(" View more ads")]
+            )
+          ],
+          1
+        )
       ]),
       _vm._v(" "),
       _c("section", { staticClass: "inner-content category-listing" }, [
-        _vm._m(2),
+        _vm._m(1),
         _vm._v(" "),
         _c(
           "div",
@@ -343,7 +375,21 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _vm._m(3)
+        _c(
+          "div",
+          { staticClass: "flex justify-center" },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-primary my-10",
+                attrs: { to: "/categories" }
+              },
+              [_vm._v(" View more categories")]
+            )
+          ],
+          1
+        )
       ])
     ],
     1
@@ -360,29 +406,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex justify-center" }, [
-      _c("a", { staticClass: "btn btn-primary my-10", attrs: { href: "#" } }, [
-        _vm._v(" View more ads")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("h2", [
       _vm._v(" Top Categories by "),
       _c("span", [_vm._v("Ads")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex justify-center" }, [
-      _c("a", { staticClass: "btn btn-primary my-10", attrs: { href: "#" } }, [
-        _vm._v(" View more categories")
-      ])
     ])
   }
 ]

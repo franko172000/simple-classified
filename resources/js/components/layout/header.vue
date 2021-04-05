@@ -4,8 +4,9 @@
             <div class="content">
                 <ul>
                     <li> <a href="#"> <i class="fas fa-align-left"></i></a> </li>
-                    <li> <a href="/"><img src="/img/logo.png" alt=""></a> </li>
-                    <li> <router-link to="auth/login"> <i class="fas fa-user"></i> <span>Login</span></router-link> </li>
+                    <li> <router-link to="/"><img src="/img/logo.png" alt=""></router-link> </li>
+                    <li v-if="!user.authorized"> <router-link to="auth/login"> <i class="fas fa-lock"></i> <span>Login</span></router-link> </li>
+                    <li v-if="user.authorized"> <i class="fas fa-user"></i> <span>{{user.name}}</span></li>
                 </ul>
                 <div class="search-form">
                     <a-input-group compact>
@@ -28,6 +29,8 @@
                     </a-input-group>
                 </div>
                 <div class="actions">
+                    <a v-if="user.authorized" @click.prevent="logout"> <i class="fas fa-sign-out-alt"></i> Logout</a>
+                    <router-link v-if="user.authorized" to="/user/my-listings" class="btn btn-primary btn-sm"> <i class="fas fa-list"></i> My Listings</router-link>
                     <router-link to="/user/post-ad" class="btn btn-primary btn-sm"> <i class="fas fa-plus-circle"></i> Post Your Ad</router-link>
                 </div>
             </div>
@@ -35,7 +38,16 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
-    name: 'mainHeader'
+    name: 'mainHeader',
+      computed: {
+        ...mapState(['user'])
+      },
+      methods:{
+          logout(){
+            this.$store.dispatch('user/logout');
+          }
+      }
 }
 </script>

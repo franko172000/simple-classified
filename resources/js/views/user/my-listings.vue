@@ -1,6 +1,6 @@
 <template>
     <div>
-        <banner class="inner-banner">
+        <banner class="inner-banner" :showHomeButton="true">
             <h1>My Listings</h1>
         </banner>
 

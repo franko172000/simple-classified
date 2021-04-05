@@ -231,9 +231,11 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("banner", { staticClass: "inner-banner" }, [
-        _c("h1", [_vm._v("My Listings")])
-      ]),
+      _c(
+        "banner",
+        { staticClass: "inner-banner", attrs: { showHomeButton: true } },
+        [_c("h1", [_vm._v("My Listings")])]
+      ),
       _vm._v(" "),
       _c(
         "div",

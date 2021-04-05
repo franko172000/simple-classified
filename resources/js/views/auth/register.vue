@@ -85,7 +85,7 @@
             handleRegistration(){
                 this.form.validateFields((err, values) => {
                     if (!err) {
-                        this.$store.dispatch('user/REGISTER', {payload: values})
+                        this.$store.dispatch('user/register', {payload: values})
                     }
                 });
             }

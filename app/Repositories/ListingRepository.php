@@ -14,10 +14,27 @@ class ListingRepository extends BaseRepository{
     public function getUserListings(int $userId,int $limit = 10, int $offset = 0){
         $data = $this->paginated($offset,$limit)
         ->where('user_id',$userId)
+        ->orderBy('created_at','desc')
         ->get();
 
         //get total record count
-        $count = $this->model->where('user_id',$userId)->count();
+        $count = $this->model
+        ->where('user_id',$userId)
+        ->count();
+
+        return ['data' => $data, 'total' => $count];
+    }
+
+    public function getListings(int $limit = 10, int $offset = 0){
+        $data = $this->paginated($offset,$limit)
+        ->where('status', 'online')
+        ->orderBy('created_at','desc')
+        ->get();
+
+        //get total record count
+        $count = $this->model
+        ->where('status', 'online')
+        ->count();
 
         return ['data' => $data, 'total' => $count];
     }
@@ -32,6 +49,7 @@ class ListingRepository extends BaseRepository{
 
     public function getListingBySlug(string $slug){
         $data = $this->model->where('slug',$slug)
+        ->with('user')
         ->first();
         return $data;
     }
@@ -46,10 +64,15 @@ class ListingRepository extends BaseRepository{
     public function getListingByCategory(int $categoryId, int $limit = 10, int $offset = 0){
         $data = $this->paginated($offset,$limit)
         ->where('category_id',$categoryId)
+        ->where('status', 'online')
+        ->orderBy('created_at','desc')
         ->get();
 
         //get total record count
-        $count = $this->model->where('category_id',$categoryId)->count();
+        $count = $this->model
+        ->where('category_id',$categoryId)
+        ->where('status', 'online')
+        ->count();
 
         return ['data' => $data, 'total' => $count];
     }

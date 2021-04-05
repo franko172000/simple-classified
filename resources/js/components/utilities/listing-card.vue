@@ -1,7 +1,7 @@
 <template>
     <!-- component -->
-    <div class="max-w-sm bg-white shadow-lg rounded-lg overflow-hidden my-4 cursor-pointer">
-            <img class="w-full h-56 object-cover object-center" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" alt="avatar">
+    <div class="max-w-sm bg-white shadow-lg rounded-lg overflow-hidden my-4 cursor-pointer" @click="navigate(listing.slug)">
+            <img class="w-full h-56 object-cover object-center" :src="listing.images && listing.images[0] ? listing.images[0].photo : 'https://via.placeholder.com/250'" alt="avatar">
             <div class="flex items-center px-6 py-3 bg-gray-900">
                 <p class="mx-3 text-white font-semibold text-lg" v-html="getAmount(listing.price)">$450</p>
             </div>
@@ -26,7 +26,7 @@
                     <div class="flex items-center mt-4 text-gray-700">
                         <i class="h-6 w-6 fill-current fas fa-eye text-center leading-normal"></i>
                     
-                        <p class="px-2 text-sm">500</p>
+                        <p class="px-2 text-sm">{{listing.views}}</p>
                     </div>
                 </div>
             </div>
@@ -46,7 +46,11 @@ export default {
         },
         getFormatDate(postedAt){
             return formatDate(postedAt);
+        },
+        navigate(slug){
+            this.$router.push('/listing/detail/'+slug);
         }
+
     }
 }
 </script>

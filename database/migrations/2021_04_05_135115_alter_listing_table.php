@@ -13,7 +13,9 @@ class AlterListingTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('listings', function (Blueprint $table) {
+            $table->integer('views')->default(0);
+        });
     }
 
     /**

@@ -18,16 +18,37 @@ const router = new Router({
           component: () => import('./views/public/home'),
         },
         {
+          path: '/listings',
+          component: () => import('./views/public/all-listings'),
+        },
+        {
+          path: '/categories',
+          component: () => import('./views/public/all-categories'),
+        },
+        {
+          path: '/listing/detail/:slug',
+          component: () => import('./views/public/ad-detail'),
+        },
+        {
           path: '/user/post-ad',
           component: () => import('./views/user/post-ad'),
+          meta:{
+            authRequired:true
+          }
         },
         {
           path: '/user/my-listings',
           component: () => import('./views/user/my-listings'),
+          meta:{
+            authRequired:true
+          }
         },
         {
           path: '/user/edit-ad/:slug',
           component: () => import('./views/user/edit-ad'),
+          meta:{
+            authRequired:true
+          }
         },
       ]
 
@@ -44,6 +65,7 @@ const router = new Router({
         {
           path: '/auth/register',
           component: () => import('./views/auth/register'),
+          
         }
       ]
 

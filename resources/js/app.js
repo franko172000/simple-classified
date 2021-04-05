@@ -7,6 +7,9 @@ import components from './components';
 import store from './store'
 import './antd'
 import NProgress from 'vue-nprogress'
+import VueCarousel from 'vue-carousel';
+
+Vue.use(VueCarousel);
 Vue.use(NProgress);
 const nprogress = new NProgress({ parent: 'body', router: true })
 
