@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ListingRequest;
+use App\Http\Requests\ListingStatusRequest;
+use App\Http\Requests\TempImageRequest;
 use App\Http\Resources\ListingResource;
+use App\Http\Resources\TempImageResource;
 use App\Services\ListingService;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
@@ -42,6 +45,14 @@ class ListingController extends BaseController
         return new ListingResource($record);
     }
 
+
+    public function delete($id){
+
+        $record = $this->listingService->deleteListing($id);
+
+        return $record ? $this->responseOk() : $this->responseNotFound("Listing does not exist");
+    }
+
     public function listing($slug){
 
         $record = $this->listingService->getListing($slug);
@@ -51,9 +62,13 @@ class ListingController extends BaseController
 
     public function userListing(){
         
-        $record = $this->listingService->getUserListings(auth()->user()->id);
+        $listing = $this->listingService->getUserListings(auth()->user()->id);
 
-        return new ListingResource($record);
+        return ListingResource::collection($listing['data'])
+        ->additional([
+            'total_records' => $listing['total'],
+            'total_returned' => count($listing['data'])
+            ]);
     }
 
     public function categoryListing(Request $request,$id){
@@ -68,5 +83,26 @@ class ListingController extends BaseController
             'total_records' => $listing['total'],
             'total_returned' => count($listing['data'])
             ]);
+    }
+
+    public function uploadImage(TempImageRequest $request){
+        $data = $request->validated();
+        $record = $this->listingService->uploadTempImg($data);
+
+        return new TempImageResource($record);
+    }
+
+    public function deleteTmpImage($id){
+        $record = $this->listingService->deleteTmpImage($id);
+
+        return $record ? $this->responseOk() : $this->responseNotFound("Image does not exist");
+    }
+    
+    public function changeStatus(ListingStatusRequest $request, $id){
+        $data = $request->validated();
+
+        $record = $this->listingService->updateStatus($id, $data['status']);
+
+        return $record ? $this->responseOk() : $this->responseNotFound("Listing does not exist");
     }
 }

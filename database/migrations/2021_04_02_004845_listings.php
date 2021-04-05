@@ -23,7 +23,6 @@ class Listings extends Migration
             $table->string('excerpt', 255);
             $table->decimal('price',10,2);
             $table->string('currency');
-            $table->string('photo',255);
             $table->string('slug', 255)->nullable();
             $table->enum('status',['online','offline'])->default('offline');
             $table->dateTime('last_date_online')->nullable();

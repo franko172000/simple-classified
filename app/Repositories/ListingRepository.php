@@ -36,6 +36,13 @@ class ListingRepository extends BaseRepository{
         return $data;
     }
 
+    public function getListingById(int $id){
+        $data = $this->model->where('id',$id)
+        ->with('images')
+        ->first();
+        return $data;
+    }
+
     public function getListingByCategory(int $categoryId, int $limit = 10, int $offset = 0){
         $data = $this->paginated($offset,$limit)
         ->where('category_id',$categoryId)
@@ -45,5 +52,11 @@ class ListingRepository extends BaseRepository{
         $count = $this->model->where('category_id',$categoryId)->count();
 
         return ['data' => $data, 'total' => $count];
+    }
+
+    public function changeStatus($id, $status){
+        return $this->model->where('id',$id)->update([
+            'status' => $status
+        ]);
     }
 }

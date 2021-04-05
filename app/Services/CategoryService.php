@@ -17,6 +17,10 @@ class CategoryService {
     }
 
     public function getCategories(int $limit=10, int $page = 1){
-        return $this->repository->findAll($limit,$page);
+        return $this->repository->findPaginated($limit,$page);
+    }
+
+    public function getAllCategories(){
+        return $this->repository->all();
     }
 }

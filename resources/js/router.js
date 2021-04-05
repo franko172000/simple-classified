@@ -18,8 +18,16 @@ const router = new Router({
           component: () => import('./views/public/home'),
         },
         {
-          path: '/post-ad',
-          component: () => import('./views/public/post-ad'),
+          path: '/user/post-ad',
+          component: () => import('./views/user/post-ad'),
+        },
+        {
+          path: '/user/my-listings',
+          component: () => import('./views/user/my-listings'),
+        },
+        {
+          path: '/user/edit-ad/:slug',
+          component: () => import('./views/user/edit-ad'),
         },
       ]
 

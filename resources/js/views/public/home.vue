@@ -8,14 +8,7 @@
         <section class="inner-content popular-listing">
             <h2> Popular Trending <span>Ads</span></h2>
             <div class="listing">
-                <listing-card />
-                <listing-card />
-                <listing-card />
-                <listing-card />
-                <listing-card />
-                <listing-card />
-                <listing-card />
-                <listing-card />
+                <listing-card v-for="(listing, index) in popularListing" :key="index" :listing="listing" />
             </div>
             <div class="flex justify-center"><a href="#" class="btn btn-primary my-10"> View more ads</a></div>
             
@@ -23,13 +16,43 @@
         <section class="inner-content category-listing">
             <h2> Top Categories by <span>Ads</span></h2>
             <div class="listing">
-                <category-card />
-                <category-card />
-                <category-card />
-                <category-card />
-                <category-card />
+                <category-card v-for="(category, index) in getCategories" :key="index" :category="category" />
             </div>
             <div class="flex justify-center"><a href="#" class="btn btn-primary my-10"> View more categories</a></div>
         </section>
     </div>
 </template>
+<script>
+import {getListings, getAllCategories, getUserListingDetail} from '../../services/requests/public';
+export default {
+    data(){
+        return {
+            listings:[],
+            categories:[]
+        }
+    },
+    computed:{
+        popularListing(){
+            return this.listings;
+        },
+        getCategories(){
+            return this.categories;
+        },
+    },
+    methods:{
+        getPopularListing(){
+            getListings()
+            .then(res=>{
+                this.listings = res.data.data;
+            });
+        }
+    },
+    mounted(){
+        this.getPopularListing();
+        getAllCategories()
+        .then(res=>{
+            this.categories = res.data.data;
+        })
+    }
+}
+</script>

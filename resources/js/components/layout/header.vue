@@ -4,7 +4,7 @@
             <div class="content">
                 <ul>
                     <li> <a href="#"> <i class="fas fa-align-left"></i></a> </li>
-                    <li> <a href="#"><img src="img/logo.png" alt=""></a> </li>
+                    <li> <a href="/"><img src="/img/logo.png" alt=""></a> </li>
                     <li> <router-link to="auth/login"> <i class="fas fa-user"></i> <span>Login</span></router-link> </li>
                 </ul>
                 <div class="search-form">
@@ -28,7 +28,7 @@
                     </a-input-group>
                 </div>
                 <div class="actions">
-                    <router-link to="/post-ad" class="btn btn-primary btn-sm"> <i class="fas fa-plus-circle"></i> Post Your Ad</router-link>
+                    <router-link to="/user/post-ad" class="btn btn-primary btn-sm"> <i class="fas fa-plus-circle"></i> Post Your Ad</router-link>
                 </div>
             </div>
         </header>

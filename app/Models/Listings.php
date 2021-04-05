@@ -16,7 +16,6 @@ class Listings extends Model
         'description',
         'excerpt',
         'price',
-        'photo',
         'currency',
         'slug',
         'status',
@@ -30,7 +29,7 @@ class Listings extends Model
         'description' => 'required|min:10',
         'excerpt'     => 'required|min:10|max:255',
         'price'       => 'required',
-        'photo'       => 'required',
+        'images'      => 'required|array|min:1',
         'currency'    => 'required',
         'category'    => 'required',
         'location'    => 'required'
@@ -42,8 +41,9 @@ class Listings extends Model
         'excerpt.required'     => 'Excerpt is required',
         'excerpt.min'     => 'Excerpt is too short',
         'excerpt.max'     => 'Excerpt is too long. Maximum character lenght is 255',
-        'price.required'       => 'Price is required',
-        'photo.required'       => 'Photo is required',
+        'images.required'     => 'Listing images are required',
+        'images.array'     => 'Listing images must be array',
+        'images.min'     => 'Listing images must have atleast one image',
         'currency.required'    => 'Currency is required',
         'category.required'    => 'Category is required',
         'location.required'    => 'location is required'
@@ -54,10 +54,14 @@ class Listings extends Model
     }
 
     public function category(){
-        return $this->belongsTo(Categories::class);
+        return $this->belongsTo(Categories::class, 'category_id', 'id');
     }
 
     public function location(){
         return $this->belongsTo(Locations::class, 'location_code', 'code');
+    }
+
+    public function images(){
+        return $this->hasMany(ListingImages::class, 'listing_id', 'id');
     }
 }

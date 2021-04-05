@@ -29,4 +29,11 @@ class CategoryControler extends BaseController
             'total_returned' => count($listing['data'])
             ]);
     }
+
+    public function allCategories(){
+
+        $categories = $this->categoryService->getAllCategories();
+
+        return CategoryResource::collection($categories);
+    }
 }
