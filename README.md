@@ -1,4 +1,4 @@
-# CRM app
+# Classic Classified VUE
 This is a simple Laravel / Vuejs Classified app
 
 # Downloading the app
