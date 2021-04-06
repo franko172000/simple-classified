@@ -120,7 +120,7 @@ export default {
     },
     methods:{
         checkFile(file){
-            const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+            const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/webp';
               if (!isJpgOrPng) {
                 this.$notification.error({
                     message: 'You can only upload JPG & PNG file!'
@@ -169,7 +169,7 @@ export default {
                         return 
                     }
 
-                    __this.uploadProgress = false;
+                    __this.uploadProgress = true;
 
                     values['images'] = __this.$store.state.tmpPhotos.listingPhotos;
 

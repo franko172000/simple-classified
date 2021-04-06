@@ -18,7 +18,7 @@
                             <a-input rows="10" type="textarea" v-decorator="['description',{rules: [{ required: true, message: 'Please enter description' }] }]"  />
                         </a-form-item>
                         <a-form-item label="Ad Photo">
-                            <a-button htmlType="button" @click.prevent="triggerClick" :loading="tmpPhotos.uploadImgProgress">
+                            <a-button htmlType="button" @click.prevent="triggerClick" :loading="uploadImgProgress">
                                   <a-icon type="upload" />Click to select photo
                               </a-button>
                               <div class="flex" v-for="(img, index) in getImages" :key="index" v-show="!img.removed">
@@ -93,6 +93,7 @@ export default {
     data(){
         return{
             uploadProgress: false,
+            uploadImgProgress: false,
             images:[],
             categories:[],
             locations: [],
@@ -152,11 +153,13 @@ export default {
                 this.imgSrc =  URL.createObjectURL(e.target.files[0]);
                 let data = new FormData();
                 data.append('photo', this.$refs.filePic.files[0]);
+                this.uploadImgProgress = true;
                 const res = await uploadPhoto(data);
                 const img = res.data.data;
                 img['removed'] = false;
                 img['new'] = true;
                 this.images.push(img);
+                this.uploadImgProgress = false;
         },
 
         removeImage(index, img){
@@ -181,7 +184,7 @@ export default {
                         return 
                     }
 
-                    __this.uploadProgress = false;
+                    __this.uploadProgress = true;
 
                     values['images'] = __this.images;
                     const slug = this.$route.params.slug;

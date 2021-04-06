@@ -11,6 +11,7 @@ export default {
   state: {
     listingPhotos: [],
     deletegProgress: false,
+    uploadImgProgress: false
   },
   mutations: {
     SET_STATE(state, payload) {
@@ -24,6 +25,7 @@ export default {
         commit('SET_STATE', {
             uploadImgProgress: true,
           })
+
         uploadPhoto(payload)
         .then(res=>{
             Vue.prototype.$notification.success({

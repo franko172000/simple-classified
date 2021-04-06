@@ -24,10 +24,20 @@ apiClient.interceptors.response.use(undefined, error => {
         window.location.href = '/auth/login';
     }
     notification.error({
-      message: data.message,
+      message: data.errors ? processError(data.errors) : data.message,
     })
   }
   return Promise.reject(error)
 })
+
+const processError = (errors)=>{
+  
+  let message = "";
+  errors.map(val=>{
+    message+= Object.values(val)[0] + "\n";
+  })
+
+  return message;
+}
 
 export default apiClient

@@ -122,6 +122,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       uploadProgress: false,
+      uploadImgProgress: false,
       images: [],
       categories: [],
       locations: [],
@@ -195,10 +196,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this.imgSrc = URL.createObjectURL(e.target.files[0]);
                 data = new FormData();
                 data.append('photo', _this.$refs.filePic.files[0]);
-                _context.next = 8;
+                _this.uploadImgProgress = true;
+                _context.next = 9;
                 return (0,_services_requests_user__WEBPACK_IMPORTED_MODULE_2__.uploadPhoto)(data);
 
-              case 8:
+              case 9:
                 res = _context.sent;
                 img = res.data.data;
                 img['removed'] = false;
@@ -206,7 +208,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
                 _this.images.push(img);
 
-              case 13:
+                _this.uploadImgProgress = false;
+
+              case 15:
               case "end":
                 return _context.stop();
             }
@@ -275,7 +279,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                             return _context3.abrupt("return");
 
                           case 4:
-                            __this.uploadProgress = false;
+                            __this.uploadProgress = true;
                             values['images'] = __this.images;
                             slug = _this2.$route.params.slug;
                             (0,_services_requests_user__WEBPACK_IMPORTED_MODULE_2__.updateAdPost)(values, slug).then(function (res) {
@@ -618,7 +622,7 @@ var render = function() {
                             {
                               attrs: {
                                 htmlType: "button",
-                                loading: _vm.tmpPhotos.uploadImgProgress
+                                loading: _vm.uploadImgProgress
                               },
                               on: {
                                 click: function($event) {

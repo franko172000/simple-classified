@@ -145,7 +145,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   methods: {
     checkFile: function checkFile(file) {
-      var isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+      var isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/webp';
 
       if (!isJpgOrPng) {
         this.$notification.error({
@@ -240,7 +240,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                             return _context2.abrupt("return");
 
                           case 4:
-                            __this.uploadProgress = false;
+                            __this.uploadProgress = true;
                             values['images'] = __this.$store.state.tmpPhotos.listingPhotos;
                             (0,_services_requests_user__WEBPACK_IMPORTED_MODULE_2__.saveAdPost)(values).then(function (res) {
                               __this.$notification.success({
