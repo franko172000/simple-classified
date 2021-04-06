@@ -46,6 +46,15 @@ Install dependencies
  npm run prod
 ```
 
+# Run on Docker
+1. Make sure you have installed docker and docker compose
+2. Make a copy of the .env.example and save it as .env or rename it to .env
+3. Navigate to the directory on your terminal and run the command below
+
+```bash
+ docker-compose up
+``` 
+
 # User Login
 ```bash
  email : test@test.com
