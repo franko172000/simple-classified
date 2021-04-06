@@ -13,6 +13,10 @@ export const saveAdPost = async (data) =>{
     return apiService.post(resources+'listing',data);
 }
 
+export const updateAdPost = async (data, slug) =>{
+    return apiService.put(resources+'listing/'+slug,data);
+}
+
 export const getUserListings = async () =>{
     return apiService.get(resources+'listings');
 }

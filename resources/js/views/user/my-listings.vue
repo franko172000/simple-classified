@@ -13,7 +13,7 @@
                             <h4 id="name" class="text-xl font-semibold mb-2">{{listing.title}}</h4>
                             <p id="job" class="text-gray-800 mt-2">{{listing.excerpt}}</p>
                             <div class="flex mt-5">
-                               <span class="mr-3 text-primary"><router-link :to="'/user/edit-ad/'+listing.slug"><i class="fas fa-edit mx-1"></i>Edit</router-link></span>
+                               <span class="mr-3 text-primary"><router-link :to="{name:'edit-listing', params:{slug: listing.slug}}"><i class="fas fa-edit mx-1"></i>Edit</router-link></span>
                                <span class="mx-3 text-red-600"><a href="#" @click.prevent="deleteUserListing(listing)"><i class="fas fa-trash mx-1"></i>Delete</a></span>
                             </div>
                             <div class="flex mt-5">

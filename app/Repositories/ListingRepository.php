@@ -39,11 +39,47 @@ class ListingRepository extends BaseRepository{
         return ['data' => $data, 'total' => $count];
     }
 
+    public function searchListing($keyword, $category=0,int $limit = 10, int $offset = 0){
+        $dataObj = $this->paginated($offset,$limit)
+        ->where('status', 'online')
+        ->where('title','LIKE','%' . $keyword . '%')
+        ->orderBy('created_at','desc');
+
+        //get total record count
+        $countObj = $this->model
+        ->where('title','LIKE','%' . $keyword . '%')
+        ->where('status', 'online');
+
+        if($category > 0){
+            $dataObj->where('category_id',$category);
+            $countObj->where('category_id',$category);
+        }
+        
+        // $count->count();
+        $data = $dataObj->get();
+        $count = $countObj->count();
+        
+
+        return ['data' => $data, 'total' => $count];
+    }
+
     public function addListing(array $data){
         $record = $this->model->create($data);
         //create slug
         $record->slug = Str::slug($record->title,'-').'-'.$record->id;
         $record->save();
+        return $record;
+    }
+
+    public function updateListing(array $data, string $slug){
+        $this->model->where('slug', $slug)->update($data);
+
+        //get updated record
+        $record = $this->model->where('slug', $slug)->first();
+        //create slug
+        $record->slug = Str::slug($record->title,'-').'-'.$record->id;
+        $record->save();
+        
         return $record;
     }
 

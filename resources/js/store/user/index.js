@@ -66,7 +66,13 @@ export default {
           store.set('user', user);
           
           //redirect to homepage
-          router.push('/');
+          const {redirect} = router.currentRoute.query;
+          if(redirect){
+            router.push(redirect)
+          }else{
+            router.push({name: 'home'})
+          }
+
        
       }).catch(err=>{
           commit('SET_STATE', {
@@ -88,7 +94,8 @@ export default {
           commit('SET_STATE', {
             loading: false,
           })
-          router.push('/auth/login')
+          
+          router.push({name: 'login'})
         }
         if (!success) {
           commit('SET_STATE', {

@@ -174,18 +174,45 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$refs.filePic.click();
     },
     onSelectedPhoto: function onSelectedPhoto(e) {
-      var file = e.target.files[0];
+      var _this = this;
 
-      if (!this.checkFile(file)) {
-        return false;
-      }
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var file, data, res, img;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                file = e.target.files[0];
 
-      this.imgSrc = URL.createObjectURL(e.target.files[0]);
-      var data = new FormData();
-      data.append('photo', this.$refs.filePic.files[0]);
-      this.$store.dispatch('tmpPhotos/processPhoto', {
-        payload: data
-      });
+                if (_this.checkFile(file)) {
+                  _context.next = 3;
+                  break;
+                }
+
+                return _context.abrupt("return", false);
+
+              case 3:
+                _this.imgSrc = URL.createObjectURL(e.target.files[0]);
+                data = new FormData();
+                data.append('photo', _this.$refs.filePic.files[0]);
+                _context.next = 8;
+                return (0,_services_requests_user__WEBPACK_IMPORTED_MODULE_2__.uploadPhoto)(data);
+
+              case 8:
+                res = _context.sent;
+                img = res.data.data;
+                img['removed'] = false;
+                img['new'] = true;
+
+                _this.images.push(img);
+
+              case 13:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     },
     removeImage: function removeImage(index, img) {
       var __this = this;
@@ -193,10 +220,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$modal.confirm({
         title: "Delete image?",
         onOk: function onOk() {
-          return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
               while (1) {
-                switch (_context.prev = _context.next) {
+                switch (_context2.prev = _context2.next) {
                   case 0:
                     img.removed = true;
 
@@ -204,80 +231,115 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
                   case 2:
                   case "end":
-                    return _context.stop();
+                    return _context2.stop();
                 }
               }
-            }, _callee);
+            }, _callee2);
           }))();
         }
       });
     },
     updatePost: function updatePost() {
-      var _this = this;
+      var _this2 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
         var __this;
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                __this = _this; // this.form.validateFields(async (err, values) => {
-                //     if (!err) {
-                //         if(__this.$store.state.tmpPhotos.listingPhotos.length === 0){
-                //             __this.$notification.error({
-                //                 message: 'You must upload atleast one image'
-                //             })
-                //             return 
-                //         }
-                //         __this.uploadProgress = false;
-                //         values['images'] = __this.$store.state.tmpPhotos.listingPhotos;
-                //         saveAdPost(values).then(res=>{
-                //              __this.$notification.success({
-                //                 message: 'Ad was posted successfully!'
-                //             });
-                //             __this.uploadProgress = false;
-                //             //clear storage
-                //             __this.$store.dispatch('tmpPhotos/removeTempImages');
-                //             __this.form.resetFields();
-                //             __this.$router.push('/user/my-listings');
-                //         })
-                //     }
-                // });
+                __this = _this2;
 
-              case 1:
+                _this2.form.validateFields( /*#__PURE__*/function () {
+                  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(err, values) {
+                    var slug;
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+                      while (1) {
+                        switch (_context3.prev = _context3.next) {
+                          case 0:
+                            if (err) {
+                              _context3.next = 8;
+                              break;
+                            }
+
+                            if (!(__this.images.length === 0)) {
+                              _context3.next = 4;
+                              break;
+                            }
+
+                            __this.$notification.error({
+                              message: 'You must upload atleast one image'
+                            });
+
+                            return _context3.abrupt("return");
+
+                          case 4:
+                            __this.uploadProgress = false;
+                            values['images'] = __this.images;
+                            slug = _this2.$route.params.slug;
+                            (0,_services_requests_user__WEBPACK_IMPORTED_MODULE_2__.updateAdPost)(values, slug).then(function (res) {
+                              __this.$notification.success({
+                                message: 'Ad was updated successfully!'
+                              });
+
+                              __this.uploadProgress = false; //clear storage
+
+                              __this.$store.dispatch('tmpPhotos/removeTempImages');
+
+                              __this.form.resetFields();
+
+                              __this.$router.push({
+                                name: 'user-listings'
+                              });
+                            });
+
+                          case 8:
+                          case "end":
+                            return _context3.stop();
+                        }
+                      }
+                    }, _callee3);
+                  }));
+
+                  return function (_x, _x2) {
+                    return _ref.apply(this, arguments);
+                  };
+                }());
+
+              case 2:
               case "end":
-                return _context2.stop();
+                return _context4.stop();
             }
           }
-        }, _callee2);
+        }, _callee4);
       }))();
     },
     loadListing: function loadListing() {
-      var _this2 = this;
+      var _this3 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
         var slug, res, data;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
-                slug = _this2.$route.params.slug;
-                _context3.next = 3;
+                slug = _this3.$route.params.slug;
+                _context5.next = 3;
                 return (0,_services_requests_public__WEBPACK_IMPORTED_MODULE_1__.getListingDetail)(slug);
 
               case 3:
-                res = _context3.sent;
+                res = _context5.sent;
                 data = res.data.data;
-                _this2.listing = data;
+                _this3.listing = data;
 
-                _this2.listing.images.map(function (val) {
+                _this3.listing.images.map(function (val) {
                   val['removed'] = false;
                 });
 
-                _this2.images = _this2.listing.images;
+                _this3.images = _this3.listing.images;
 
-                _this2.form.setFieldsValue({
+                _this3.form.setFieldsValue({
                   title: data.title,
                   excerpt: data.excerpt,
                   description: data.description,
@@ -289,178 +351,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 9:
               case "end":
-                return _context3.stop();
+                return _context5.stop();
             }
           }
-        }, _callee3);
+        }, _callee5);
       }))();
     }
   },
   mounted: function mounted() {
-    var _this3 = this;
+    var _this4 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
-              _context4.next = 2;
-              return _this3.loadListing();
+              _context6.next = 2;
+              return _this4.loadListing();
 
             case 2:
               (0,_services_requests_public__WEBPACK_IMPORTED_MODULE_1__.getLocations)().then(function (res) {
-                _this3.locations = res.data.data;
+                _this4.locations = res.data.data;
               });
               (0,_services_requests_public__WEBPACK_IMPORTED_MODULE_1__.getAllCategories)().then(function (res) {
-                _this3.categories = res.data.data;
+                _this4.categories = res.data.data;
               });
 
             case 4:
             case "end":
-              return _context4.stop();
+              return _context6.stop();
           }
         }
-      }, _callee4);
+      }, _callee6);
     }))();
   }
 });
-
-/***/ }),
-
-/***/ "./resources/js/services/requests/public.js":
-/*!**************************************************!*\
-  !*** ./resources/js/services/requests/public.js ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getLocations": () => (/* binding */ getLocations),
-/* harmony export */   "getAllCategories": () => (/* binding */ getAllCategories),
-/* harmony export */   "getCategories": () => (/* binding */ getCategories),
-/* harmony export */   "getListingDetail": () => (/* binding */ getListingDetail),
-/* harmony export */   "getListings": () => (/* binding */ getListings)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../axios */ "./resources/js/services/axios/index.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-
-var resources = '/';
-
-var generateParams = function generateParams(limit, page) {
-  return limit && page ? '?' + new URLSearchParams({
-    limit: limit,
-    page: page
-  }) : '';
-};
-
-var getLocations = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            return _context.abrupt("return", _axios__WEBPACK_IMPORTED_MODULE_1__.default.get(resources + 'locations'));
-
-          case 1:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function getLocations() {
-    return _ref.apply(this, arguments);
-  };
-}();
-var getAllCategories = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            return _context2.abrupt("return", _axios__WEBPACK_IMPORTED_MODULE_1__.default.get(resources + 'categories/all'));
-
-          case 1:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-
-  return function getAllCategories() {
-    return _ref2.apply(this, arguments);
-  };
-}();
-var getCategories = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(limit, page) {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            return _context3.abrupt("return", _axios__WEBPACK_IMPORTED_MODULE_1__.default.get(resources + 'categories' + generateParams(limit, page)));
-
-          case 1:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3);
-  }));
-
-  return function getCategories(_x, _x2) {
-    return _ref3.apply(this, arguments);
-  };
-}();
-var getListingDetail = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(slug) {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
-      while (1) {
-        switch (_context4.prev = _context4.next) {
-          case 0:
-            return _context4.abrupt("return", _axios__WEBPACK_IMPORTED_MODULE_1__.default.get(resources + 'listings/' + slug));
-
-          case 1:
-          case "end":
-            return _context4.stop();
-        }
-      }
-    }, _callee4);
-  }));
-
-  return function getListingDetail(_x3) {
-    return _ref4.apply(this, arguments);
-  };
-}();
-var getListings = /*#__PURE__*/function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(limit, page) {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
-      while (1) {
-        switch (_context5.prev = _context5.next) {
-          case 0:
-            return _context5.abrupt("return", _axios__WEBPACK_IMPORTED_MODULE_1__.default.get(resources + 'listings' + generateParams(limit, page)));
-
-          case 1:
-          case "end":
-            return _context5.stop();
-        }
-      }
-    }, _callee5);
-  }));
-
-  return function getListings(_x4, _x5) {
-    return _ref5.apply(this, arguments);
-  };
-}();
 
 /***/ }),
 
@@ -773,6 +698,7 @@ var render = function() {
                                       _c(
                                         "button",
                                         {
+                                          attrs: { type: "button" },
                                           on: {
                                             click: function($event) {
                                               return _vm.removeImage(index, img)

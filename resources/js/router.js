@@ -15,22 +15,37 @@ const router = new Router({
       children:[
         {
           path: '/',
+          name:'home',
           component: () => import('./views/public/home'),
         },
         {
           path: '/listings',
+          name: 'listings',
           component: () => import('./views/public/all-listings'),
         },
         {
+          path: '/listings/search',
+          name: 'search',
+          component: () => import('./views/public/search-listings'),
+        },
+        {
           path: '/categories',
+          name: 'categories',
           component: () => import('./views/public/all-categories'),
         },
         {
+          path: '/category/:id/listings/:slug',
+          name: 'category-listing',
+          component: () => import('./views/public/category-listings'),
+        },
+        {
           path: '/listing/detail/:slug',
+          name: 'details',
           component: () => import('./views/public/ad-detail'),
         },
         {
           path: '/user/post-ad',
+          name: 'post-ad',
           component: () => import('./views/user/post-ad'),
           meta:{
             authRequired:true
@@ -38,6 +53,7 @@ const router = new Router({
         },
         {
           path: '/user/my-listings',
+          name:'user-listings',
           component: () => import('./views/user/my-listings'),
           meta:{
             authRequired:true
@@ -45,6 +61,7 @@ const router = new Router({
         },
         {
           path: '/user/edit-ad/:slug',
+          name: 'edit-listing',
           component: () => import('./views/user/edit-ad'),
           meta:{
             authRequired:true
@@ -60,10 +77,12 @@ const router = new Router({
       children:[
         {
           path: '/auth/login',
+          name:'login',
           component: () => import('./views/auth/login'),
         },
         {
           path: '/auth/register',
+          name: 'register',
           component: () => import('./views/auth/register'),
           
         }

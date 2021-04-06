@@ -32,6 +32,7 @@ Route::prefix('/user')->group(function(){
         Route::delete('/listing/image/delete-temp/{id}', [ListingController::class,'deleteTmpImage'])->name('upload-listing-image');
         Route::patch('/listing/change-status/{id}', [ListingController::class,'changeStatus'])->name('change-listing-status');
         Route::post('/listing', [ListingController::class,'store'])->name('add-listing');
+        Route::put('/listing/{slug}', [ListingController::class,'update'])->name('edit-listing');
         Route::delete('/listing/delete/{id}', [ListingController::class,'delete'])->name('delete-listing');
     });
 });
@@ -42,6 +43,7 @@ Route::prefix('/user')->group(function(){
 
 Route::prefix('listings')->group(function(){
     Route::get('/', [ListingController::class,'index'])->name('listings');
+    Route::get('/search', [ListingController::class,'searchListing']);
     Route::get('/{slug}', [ListingController::class,'listing'])->name('single-listing');
     Route::get('/category/{id}', [ListingController::class,'categoryListing']);
 });

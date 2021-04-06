@@ -36,6 +36,20 @@ class ListingController extends BaseController
             ]);
     }
 
+    public function searchListing(Request $request){
+        $requestData = $request->all();
+
+        [$page,$limit] = $this->getPaginationData($requestData);
+
+        $listing = $this->listingService->searchListing($requestData,$limit,$page);
+        // print_r($listing['data']);exit;
+        return ListingResource::collection($listing['data'])
+        ->additional([
+            'total_records' => $listing['total'],
+            'total_returned' => count($listing['data'])
+            ]);
+    }
+
     public function store(ListingRequest $request){
 
         $data = $request->validated();
@@ -43,6 +57,15 @@ class ListingController extends BaseController
         $record = $this->listingService->addListing($data, auth()->user()->id);
 
         return new ListingResource($record);
+    }
+
+    public function update(ListingRequest $request, $slug){
+
+        $data = $request->validated();
+
+        $record = $this->listingService->updateListing($data, $slug);
+        
+        return $this->responseOk();
     }
 
 

@@ -32,7 +32,7 @@
                                       </div>
                                     </div>
                                     <div class="p-2">
-                                      <button @click="removeImage(index, img)"><i class="fas fa-trash"></i></button>
+                                      <button type="button" @click="removeImage(index, img)"><i class="fas fa-trash"></i></button>
                                     </div>
                                   </div>
                               </div>
@@ -88,7 +88,7 @@
 <script>
 import { mapState } from 'vuex'
 import {getLocations, getAllCategories, getListingDetail} from '../../services/requests/public';
-import {saveAdPost} from '../../services/requests/user';
+import {updateAdPost, uploadPhoto} from '../../services/requests/user';
 export default {
     data(){
         return{
@@ -144,7 +144,7 @@ export default {
         triggerClick(){
             this.$refs.filePic.click();
         },
-        onSelectedPhoto(e){
+        async onSelectedPhoto(e){
             const file = e.target.files[0];
             if(!this.checkFile(file)){
                 return false;
@@ -152,7 +152,11 @@ export default {
                 this.imgSrc =  URL.createObjectURL(e.target.files[0]);
                 let data = new FormData();
                 data.append('photo', this.$refs.filePic.files[0]);
-                this.$store.dispatch('tmpPhotos/processPhoto', {payload: data});
+                const res = await uploadPhoto(data);
+                const img = res.data.data;
+                img['removed'] = false;
+                img['new'] = true;
+                this.images.push(img);
         },
 
         removeImage(index, img){
@@ -168,35 +172,35 @@ export default {
 
         async updatePost(){
             const __this = this;
-            // this.form.validateFields(async (err, values) => {
-            //     if (!err) {
-            //         if(__this.$store.state.tmpPhotos.listingPhotos.length === 0){
-            //             __this.$notification.error({
-            //                 message: 'You must upload atleast one image'
-            //             })
-            //             return 
-            //         }
+            this.form.validateFields(async (err, values) => {
+                if (!err) {
+                    if(__this.images.length === 0){
+                        __this.$notification.error({
+                            message: 'You must upload atleast one image'
+                        })
+                        return 
+                    }
 
-            //         __this.uploadProgress = false;
+                    __this.uploadProgress = false;
 
-            //         values['images'] = __this.$store.state.tmpPhotos.listingPhotos;
+                    values['images'] = __this.images;
+                    const slug = this.$route.params.slug;
+                    updateAdPost(values,slug ).then(res=>{
+                         __this.$notification.success({
+                            message: 'Ad was updated successfully!'
+                        });
+                        __this.uploadProgress = false;
 
-            //         saveAdPost(values).then(res=>{
-            //              __this.$notification.success({
-            //                 message: 'Ad was posted successfully!'
-            //             });
-            //             __this.uploadProgress = false;
+                        //clear storage
+                        __this.$store.dispatch('tmpPhotos/removeTempImages');
 
-            //             //clear storage
-            //             __this.$store.dispatch('tmpPhotos/removeTempImages');
+                        __this.form.resetFields();
 
-            //             __this.form.resetFields();
-
-            //             __this.$router.push('/user/my-listings');
-            //         })
+                        __this.$router.push({name:'user-listings'});
+                    })
                    
-            //     }
-            // });
+                }
+            });
         },
         async loadListing(){
             const slug = this.$route.params.slug;

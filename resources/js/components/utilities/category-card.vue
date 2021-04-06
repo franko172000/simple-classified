@@ -7,7 +7,7 @@
             <div class="py-4 px-6 text-center">
                 <h1 class="text-2xl font-semibold text-gray-800">{{category.name}}</h1>
                 <div class="flex flex-col items-center mt-4 text-gray-700 ">
-                    <h1 class="px-2 text-base text-center text-primary">{{category.listings}} ads</h1>
+                    <h1 class="px-2 text-base text-center text-primary"><router-link :to="{name:'category-listing', params:{id: category.id, slug: category.slug }}">{{category.listings}} ads</router-link></h1>
                 </div>
             </div>
         </div>

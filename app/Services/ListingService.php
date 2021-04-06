@@ -49,6 +49,10 @@ class ListingService {
         return $this->repository->getListings($limit,$page);
     }
 
+    public function searchListing($data,int $limit=10, int $page = 1){
+        return $this->repository->searchListing($data['keyword'], $data['category'],$limit,$page);
+    }
+
     public function getUserListings(int $userId, int $limit=10, int $page = 1){
         return $this->repository->getUserListings( $userId,$limit,$page);
     }
@@ -77,6 +81,44 @@ class ListingService {
 
             //delete temp images
             $this->tempImageRepo->deleteById($image['id']);
+
+        },$data['images']);
+
+        return $listingData;
+    }
+
+    public function updateListing(array $data, string $slug){
+        //save listing data
+        $listingData = $this->repository->updateListing([
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'excerpt' => $data['excerpt'],
+            'price' => $data['price'],
+            'currency' => $data['currency'],
+            'category_id' => $data['category'],
+            'location_code' => $data['location']
+        ],$slug);
+
+        //iterate through the image array
+         array_map(function($image) use ($listingData){
+
+             //save images
+             if(isset($image['new']) && $image['new']){
+                $this->imageRepo->create([
+                    "listing_id" => $listingData->id,
+                    "photo" => $image['filename']
+                ]);
+             }
+
+             //remove image
+             if($image['removed']){
+                $this->imageRepo->deleteById($image['id']);
+                //delete file
+                $this->removeExistingFile(ListingImages::$storagePath.$image['filename']);
+             }
+           
+            //delete temp images
+            //$this->tempImageRepo->deleteById($image['id']);
 
         },$data['images']);
 
@@ -128,7 +170,7 @@ class ListingService {
         return $this->repository->getListingBySlug( $slug);
     }
     
-    public function getCategoryListing(int $categoryId, int $limit=10, int $page = 1){
-        return $this->repository->getListingByCategory($categoryId, $limit, $page);
+    public function getCategoryListing(int $slug, int $limit=10, int $page = 1){
+        return $this->repository->getListingByCategory($slug, $limit, $page);
     }
 }

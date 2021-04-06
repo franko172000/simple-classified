@@ -296,7 +296,12 @@ var render = function() {
                               _c(
                                 "router-link",
                                 {
-                                  attrs: { to: "/user/edit-ad/" + listing.slug }
+                                  attrs: {
+                                    to: {
+                                      name: "edit-listing",
+                                      params: { slug: listing.slug }
+                                    }
+                                  }
                                 },
                                 [
                                   _c("i", { staticClass: "fas fa-edit mx-1" }),

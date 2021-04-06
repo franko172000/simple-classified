@@ -48,7 +48,7 @@ export default {
             return formatDate(postedAt);
         },
         navigate(slug){
-            this.$router.push('/listing/detail/'+slug);
+            this.$router.push({name:'details', params:{slug}});
         }
 
     }
