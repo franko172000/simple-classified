@@ -23,5 +23,41 @@ class RawDataSeed extends Seeder
         (6, 1, 7, 'LA', 'Set of Chair', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc egestas vel velit et ultrices. Nullam auctor bibendum ante rutrum tristique. Praesent tincidunt mi lectus, ut pretium nibh efficitur vitae. Sed malesuada ligula at diam ornare, non varius lacus consequat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In vel lacus ac nisl iaculis suscipit. In erat sem, facilisis non ultricies ac, laoreet eu nibh.\n\nNulla ultricies purus sed congue eleifend. Vivamus pretium dui ac est porta, blandit mattis libero commodo. Integer sagittis placerat viverra. Phasellus orci lorem, aliquam eu luctus in, consectetur id purus. Sed semper eu justo nec gravida. Vestibulum malesuada eu libero non viverra. Fusce posuere justo non tellus congue, vel facilisis augue faucibus.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc egestas vel velit et ultrices. Nullam auctor bibendum ante rutrum tristique.', '80000.00', 'NGN', 'set-of-chair-6', 'online', NULL, NULL, '2021-04-06 10:30:46', '2021-04-06 10:30:54', 0),
         (7, 1, 5, 'LA', 'Evening Dress', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc egestas vel velit et ultrices. Nullam auctor bibendum ante rutrum tristique. Praesent tincidunt mi lectus, ut pretium nibh efficitur vitae. Sed malesuada ligula at diam ornare, non varius lacus consequat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In vel lacus ac nisl iaculis suscipit. In erat sem, facilisis non ultricies ac, laoreet eu nibh.\n\nNulla ultricies purus sed congue eleifend. Vivamus pretium dui ac est porta, blandit mattis libero commodo. Integer sagittis placerat viverra. Phasellus orci lorem, aliquam eu luctus in, consectetur id purus. Sed semper eu justo nec gravida. Vestibulum malesuada eu libero non viverra. Fusce posuere justo non tellus congue, vel facilisis augue faucibus.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc egestas vel velit et ultrices. Nullam auctor bibendum ante rutrum tristique.', '40000.00', 'NGN', 'evening-dress-7', 'online', NULL, NULL, '2021-04-06 10:33:44', '2021-04-06 10:33:48', 0),
         (8, 1, 5, 'LA', 'Balmain Sneakers', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc egestas vel velit et ultrices. Nullam auctor bibendum ante rutrum tristique. Praesent tincidunt mi lectus, ut pretium nibh efficitur vitae. Sed malesuada ligula at diam ornare, non varius lacus consequat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In vel lacus ac nisl iaculis suscipit. In erat sem, facilisis non ultricies ac, laoreet eu nibh.\n\nNulla ultricies purus sed congue eleifend. Vivamus pretium dui ac est porta, blandit mattis libero commodo. Integer sagittis placerat viverra. Phasellus orci lorem, aliquam eu luctus in, consectetur id purus. Sed semper eu justo nec gravida. Vestibulum malesuada eu libero non viverra. Fusce posuere justo non tellus congue, vel facilisis augue faucibus.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc egestas vel velit et ultrices. Nullam auctor bibendum ante rutrum tristique.', '59000.00', 'NGN', 'balmain-sneakers-8', 'online', NULL, NULL, '2021-04-06 10:38:52', '2021-04-06 10:38:57', 0);");
+        
+        DB::statement(
+        "INSERT INTO `listing_images` (`id`, `listing_id`, `photo`, `created_at`, `updated_at`) VALUES
+        (1, 1, '606c3ae703235-606c3ae70323b.jpg', '2021-04-06 09:43:20', '2021-04-06 09:43:20'),
+        (2, 1, '606c3af5637c6-606c3af5637c9.jpg', '2021-04-06 09:43:20', '2021-04-06 09:43:20'),
+        (3, 1, '606c3b003d01a-606c3b003d021.jpg', '2021-04-06 09:43:21', '2021-04-06 09:43:21'),
+        (4, 1, '606c3b08b5da1-606c3b08b5da5.jpg', '2021-04-06 09:43:21', '2021-04-06 09:43:21'),
+        (5, 2, '606c3c9d17b58-606c3c9d17b5c.jpg', '2021-04-06 09:50:09', '2021-04-06 09:50:09'),
+        (6, 2, '606c3ca6462d6-606c3ca6462da.jpg', '2021-04-06 09:50:09', '2021-04-06 09:50:09'),
+        (7, 2, '606c3caf9570e-606c3caf95715.jpg', '2021-04-06 09:50:09', '2021-04-06 09:50:09'),
+        (8, 2, '606c3cb848804-606c3cb84880a.jpg', '2021-04-06 09:50:09', '2021-04-06 09:50:09'),
+        (9, 2, '606c3cc15e1dc-606c3cc15e1f4.jpg', '2021-04-06 09:50:09', '2021-04-06 09:50:09'),
+        (10, 3, '606c3ee776323-606c3ee776326.jpg', '2021-04-06 10:00:11', '2021-04-06 10:00:11'),
+        (11, 3, '606c3ffe40340-606c3ffe40349.jpg', '2021-04-06 10:04:06', '2021-04-06 10:04:06'),
+        (12, 3, '606c400b3e384-606c400b3e38a.jpg', '2021-04-06 10:04:06', '2021-04-06 10:04:06'),
+        (13, 3, '606c402165de4-606c402165dec.jpg', '2021-04-06 10:04:06', '2021-04-06 10:04:06'),
+        (14, 4, '606c43295b0ed-606c43295b0ef.jpg', '2021-04-06 10:17:57', '2021-04-06 10:17:57'),
+        (15, 4, '606c43306cf44-606c43306cf46.jpg', '2021-04-06 10:17:57', '2021-04-06 10:17:57'),
+        (16, 4, '606c4336ee322-606c4336ee324.jpg', '2021-04-06 10:17:57', '2021-04-06 10:17:57'),
+        (17, 4, '606c433d83a99-606c433d83a9b.jpg', '2021-04-06 10:17:57', '2021-04-06 10:17:57'),
+        (18, 5, '606c445816aa0-606c445816aac.jpg', '2021-04-06 10:22:30', '2021-04-06 10:22:30'),
+        (19, 5, '606c445f4a7d5-606c445f4a7d8.jpg', '2021-04-06 10:22:30', '2021-04-06 10:22:30'),
+        (20, 5, '606c44679fd23-606c44679fd29.jpg', '2021-04-06 10:22:30', '2021-04-06 10:22:30'),
+        (21, 5, '606c446f203c5-606c446f203cf.jpg', '2021-04-06 10:22:30', '2021-04-06 10:22:30'),
+        (22, 6, '606c45dfe3528-606c45dfe352f.jpg', '2021-04-06 10:30:46', '2021-04-06 10:30:46'),
+        (23, 6, '606c45e6b3622-606c45e6b3636.jpg', '2021-04-06 10:30:46', '2021-04-06 10:30:46'),
+        (24, 6, '606c45ed350d8-606c45ed350dd.jpg', '2021-04-06 10:30:46', '2021-04-06 10:30:46'),
+        (25, 7, '606c47048e3f4-606c47048e3f6.jpg', '2021-04-06 10:33:44', '2021-04-06 10:33:44'),
+        (26, 7, '606c470ba6ca6-606c470ba6caa.jpg', '2021-04-06 10:33:44', '2021-04-06 10:33:44'),
+        (27, 7, '606c471270c07-606c471270c0a.jpg', '2021-04-06 10:33:44', '2021-04-06 10:33:44'),
+        (28, 8, '606c480b3b1ed-606c480b3b1f0.jpg', '2021-04-06 10:38:52', '2021-04-06 10:38:52'),
+        (29, 8, '606c48135ab90-606c48135ab92.jpg', '2021-04-06 10:38:52', '2021-04-06 10:38:52'),
+        (30, 8, '606c481abafcf-606c481abafdc.jpg', '2021-04-06 10:38:52', '2021-04-06 10:38:52'),
+        (31, 8, '606c4824a7211-606c4824a7213.jpg', '2021-04-06 10:38:52', '2021-04-06 10:38:52'),
+        (32, 8, '606c482ccfe5c-606c482ccfe5d.jpg', '2021-04-06 10:38:52', '2021-04-06 10:38:52');"
+        );
     }
 }
