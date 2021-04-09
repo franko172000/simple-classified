@@ -33,6 +33,10 @@ Install dependencies
 ```bash
  php artisan db:seed
 ```
+# Link storage
+```bash
+ php artisan storage:link
+```
 # Install Node Dependencies
 ```bash
  npm install
