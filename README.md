@@ -41,6 +41,11 @@ Install dependencies
 ```bash
  php artisan passport:install
 ```
+# Start Application
+
+```bash
+ php artisan serve
+```
 # Install Node Dependencies
 ```bash
  npm install
