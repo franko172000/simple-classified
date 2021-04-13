@@ -8,13 +8,29 @@ use Illuminate\Http\Request;
 
 class CategoryControler extends BaseController
 {   
+    /**
+     * CategoryService var
+     *
+     * @var CategoryService
+     */
     private $categoryService;
 
+    /**
+     * Constructor method 
+     *
+     * @param CategoryService $service
+     */
     public function __construct(CategoryService $service)
     {
         $this->categoryService = $service;
     }
     
+    /**
+     * Method to return paginated list of categories
+     *
+     * @param Request $request
+     * @return void
+     */
     public function index(Request $request){
 
         $requestData = $request->all();
@@ -30,6 +46,11 @@ class CategoryControler extends BaseController
             ]);
     }
 
+    /**
+     * Mehtod to retur all categories
+     *
+     * @return void
+     */
     public function allCategories(){
 
         $categories = $this->categoryService->getAllCategories();

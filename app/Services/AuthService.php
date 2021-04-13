@@ -24,6 +24,12 @@ class AuthService {
         $this->repository = $repository;
     }
 
+    /**
+     * Add new user to the database
+     *
+     * @param array $data
+     * @return void
+     */
     public function createUser(array $data){
         return $this->repository->create([
             'email' => $data['email'],

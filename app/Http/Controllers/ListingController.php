@@ -16,12 +16,28 @@ class ListingController extends BaseController
 
     use ResponseTrait;
 
+    /**
+     * Undocumented variable
+     *
+     * @var ListingService
+     */
     private $listingService;
 
+    /**
+     * Contructor method for class instantiation
+     *
+     * @param ListingService $listingService
+     */
     public function __construct(ListingService $listingService){
         $this->listingService = $listingService;
     }
 
+    /**
+     * Method to return all listings with pagination
+     *
+     * @param Request $request
+     * @return void
+     */
     public function index(Request $request){
         $requestData = $request->all();
 
@@ -36,6 +52,12 @@ class ListingController extends BaseController
             ]);
     }
 
+    /**
+     * Mehtod to search for listing based on matching criteria
+     *
+     * @param Request $request
+     * @return void
+     */
     public function searchListing(Request $request){
         $requestData = $request->all();
 
@@ -50,6 +72,12 @@ class ListingController extends BaseController
             ]);
     }
 
+    /**
+     * Mehtod to save new listing
+     *
+     * @param ListingRequest $request
+     * @return void
+     */
     public function store(ListingRequest $request){
 
         $data = $request->validated();
@@ -59,7 +87,14 @@ class ListingController extends BaseController
         return new ListingResource($record);
     }
 
-    public function update(ListingRequest $request, $slug){
+    /**
+     * Method to update listing via slug
+     *
+     * @param ListingRequest $request
+     * @param string $slug
+     * @return void
+     */
+    public function update(ListingRequest $request, string $slug){
 
         $data = $request->validated();
 
@@ -68,7 +103,12 @@ class ListingController extends BaseController
         return $this->responseOk();
     }
 
-
+    /**
+     * Method to delete lsitings
+     *
+     * @param integer $id
+     * @return void
+     */
     public function delete($id){
 
         $record = $this->listingService->deleteListing($id);
@@ -76,13 +116,24 @@ class ListingController extends BaseController
         return $record ? $this->responseOk() : $this->responseNotFound("Listing does not exist");
     }
 
-    public function listing($slug){
+    /**
+     * Method to get listing by slug
+     *
+     * @param string $slug
+     * @return void
+     */
+    public function getListingBySlug(string $slug){
 
         $record = $this->listingService->getListing($slug);
         $listing = new ListingResource($record);
         return $listing->additional(['user' => $listing->user]);
     }
 
+    /**
+     * Mehtod to get listing by authenticated users
+     *
+     * @return void
+     */
     public function userListing(){
         
         $listing = $this->listingService->getUserListings(auth()->user()->id);
@@ -94,6 +145,13 @@ class ListingController extends BaseController
             ]);
     }
 
+    /**
+     * Method to get listings by categories
+     *
+     * @param Request $request
+     * @param integer $id
+     * @return void
+     */
     public function categoryListing(Request $request,$id){
         $requestData = $request->all();
 
@@ -108,6 +166,12 @@ class ListingController extends BaseController
             ]);
     }
 
+    /**
+     * Method to upload listing images to a temporal location
+     *
+     * @param TempImageRequest $request
+     * @return void
+     */
     public function uploadImage(TempImageRequest $request){
         $data = $request->validated();
         $record = $this->listingService->uploadTempImg($data);
@@ -115,12 +179,25 @@ class ListingController extends BaseController
         return new TempImageResource($record);
     }
 
+    /**
+     * Method to delete temporary listing images
+     *
+     * @param integer $id
+     * @return void
+     */
     public function deleteTmpImage($id){
         $record = $this->listingService->deleteTmpImage($id);
 
         return $record ? $this->responseOk() : $this->responseNotFound("Image does not exist");
     }
     
+    /**
+     * Method to change listing status
+     *
+     * @param ListingStatusRequest $request
+     * @param inetger $id
+     * @return void
+     */
     public function changeStatus(ListingStatusRequest $request, $id){
         $data = $request->validated();
 

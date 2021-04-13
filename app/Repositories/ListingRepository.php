@@ -11,6 +11,14 @@ class ListingRepository extends BaseRepository{
         $this->model = $model;
     }
 
+    /**
+     * Get authenticated user listings
+     *
+     * @param integer $userId
+     * @param integer $limit
+     * @param integer $offset
+     * @return array
+     */
     public function getUserListings(int $userId,int $limit = 10, int $offset = 0){
         $data = $this->paginated($offset,$limit)
         ->where('user_id',$userId)
@@ -25,6 +33,13 @@ class ListingRepository extends BaseRepository{
         return ['data' => $data, 'total' => $count];
     }
 
+    /**
+     * Get listings
+     *
+     * @param integer $limit
+     * @param integer $offset
+     * @return array
+     */
     public function getListings(int $limit = 10, int $offset = 0){
         $data = $this->paginated($offset,$limit)
         ->where('status', 'online')
@@ -39,6 +54,15 @@ class ListingRepository extends BaseRepository{
         return ['data' => $data, 'total' => $count];
     }
 
+    /**
+     * Search listings
+     *
+     * @param [type] $keyword
+     * @param integer $category
+     * @param integer $limit
+     * @param integer $offset
+     * @return array
+     */
     public function searchListing($keyword, $category=0,int $limit = 10, int $offset = 0){
         $dataObj = $this->paginated($offset,$limit)
         ->where('status', 'online')
@@ -63,6 +87,12 @@ class ListingRepository extends BaseRepository{
         return ['data' => $data, 'total' => $count];
     }
 
+    /**
+     * Create new listing
+     *
+     * @param array $data
+     * @return object
+     */
     public function addListing(array $data){
         $record = $this->model->create($data);
         //create slug
@@ -71,6 +101,13 @@ class ListingRepository extends BaseRepository{
         return $record;
     }
 
+    /**
+     * Update listing
+     *
+     * @param array $data
+     * @param string $slug
+     * @return void
+     */
     public function updateListing(array $data, string $slug){
         $this->model->where('slug', $slug)->update($data);
 
@@ -83,6 +120,12 @@ class ListingRepository extends BaseRepository{
         return $record;
     }
 
+    /**
+     * get listing by slug
+     *
+     * @param string $slug
+     * @return void
+     */
     public function getListingBySlug(string $slug){
         $data = $this->model->where('slug',$slug)
         ->with('user')
@@ -90,6 +133,12 @@ class ListingRepository extends BaseRepository{
         return $data;
     }
 
+    /**
+     * Get listing by id
+     *
+     * @param integer $id
+     * @return object
+     */
     public function getListingById(int $id){
         $data = $this->model->where('id',$id)
         ->with('images')
@@ -97,6 +146,15 @@ class ListingRepository extends BaseRepository{
         return $data;
     }
 
+
+    /**
+     * Get listing by category
+     *
+     * @param integer $categoryId
+     * @param integer $limit
+     * @param integer $offset
+     * @return array
+     */
     public function getListingByCategory(int $categoryId, int $limit = 10, int $offset = 0){
         $data = $this->paginated($offset,$limit)
         ->where('category_id',$categoryId)
@@ -113,6 +171,13 @@ class ListingRepository extends BaseRepository{
         return ['data' => $data, 'total' => $count];
     }
 
+    /**
+     * Change listing status
+     *
+     * @param integer $id
+     * @param integer $status
+     * @return void
+     */
     public function changeStatus($id, $status){
         return $this->model->where('id',$id)->update([
             'status' => $status

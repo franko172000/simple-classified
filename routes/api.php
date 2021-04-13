@@ -44,7 +44,7 @@ Route::prefix('/user')->group(function(){
 Route::prefix('listings')->group(function(){
     Route::get('/', [ListingController::class,'index'])->name('listings');
     Route::get('/search', [ListingController::class,'searchListing']);
-    Route::get('/{slug}', [ListingController::class,'listing'])->name('single-listing');
+    Route::get('/{slug}', [ListingController::class,'getListingBySlug'])->name('single-listing');
     Route::get('/category/{id}', [ListingController::class,'categoryListing']);
 });
 
