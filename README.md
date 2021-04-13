@@ -32,15 +32,14 @@ Install dependencies
 ```bash
  php artisan key:gen
 ```
+# Link storage
+```bash
+ php artisan storage:link
+```
 # Install Laravel Passport
 
 ```bash
  php artisan passport:install
-```
-
-# Link storage
-```bash
- php artisan storage:link
 ```
 # Install Node Dependencies
 ```bash
@@ -58,7 +57,8 @@ Install dependencies
 # Run on Docker
 1. Make sure you have installed docker and docker compose
 2. Make a copy of the .env.example and save it as .env or rename it to .env
-3. Navigate to the directory on your terminal and run the command below
+3. Make sure port 3306 is not in use on your machine
+4. Navigate to the directory on your terminal and run the command below
 
 ```bash
  docker-compose up
