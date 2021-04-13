@@ -8,6 +8,7 @@
             </div>
         </div>
         <div class="form-section">
+            <div class="logo"><logo/></div>
             <h2>Create Account</h2>
             <div class="form">
                     <a-form :form="form" @submit.prevent="handleRegistration">

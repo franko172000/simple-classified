@@ -49,6 +49,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Login',
   data: function data() {
@@ -190,6 +191,8 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "form-section" }, [
+      _c("div", { staticClass: "logo" }, [_c("logo")], 1),
+      _vm._v(" "),
       _c("h2", [_vm._v("Login")]),
       _vm._v(" "),
       _c(

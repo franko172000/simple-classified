@@ -1,15 +1,53 @@
 <template>
     <div>
+         <div class="mobile-menu" id="mobile-nav">
+            <div class="menu-content slideOut">
+                <div class="logo">
+                  <logo/>
+                  <span class="close"><a href="#"> <i class="fas fa-times"></i></a></span>
+                </div>
+                <div class="search-form">
+                    <a-form @submit.prevent="handleSearch">
+                    <a-form-item label="Keyword">
+                        <a-input name="keyword" v-model="search.keyword"  placeholder="Find properties, electronics, mobile phones, cars..." size="large"/>
+                    </a-form-item>
+                    <a-form-item label="Category">
+                        <a-select default-value="Categories" size="large" v-model="search.category" name="category">
+                          <a-select-option :value="category.id" v-for="(category, index) in misc.categories" :key="index" >
+                            {{category.name}}
+                          </a-select-option>
+                        </a-select>
+                    </a-form-item>
+                        <a-button
+                          type="primary"
+                          size="large"
+                          class="text-center w-100"
+                          htmlType="submit"
+                          >
+                          <strong>Search</strong>
+                          </a-button>
+                     </a-form>
+                </div>
+                <ul>
+                    <li><a href="">Post Ad</a></li>
+                    <li><a href="">Categories</a></li>
+                    <li><a href="">All Listings</a></li>
+                    <li><a href="">My Listings</a></li>
+                    <li><a href="">Login</a></li>
+                    <li><a href="">Register</a></li>
+                </ul>
+            </div>
+        </div>
         <header>
             <div class="content">
                 <ul>
-                    <li> <a href="#"> <i class="fas fa-align-left"></i></a> </li>
-                    <li> <router-link to="/"><img src="/img/logo.png" alt=""></router-link> </li>
+                    <li class="show-mobile"> <a href="#" id="mobile-menu-toggle"> <i class="fas fa-align-left"></i></a> </li>
+                    <li class="show-mobile"> <logo/> </li>
                     <li v-if="!user.authorized"> <router-link :to="{name: 'login'}"> <i class="fas fa-lock"></i> <span>Login</span></router-link> </li>
                     <li v-if="user.authorized"> <i class="fas fa-user"></i> <span>{{user.name}}</span></li>
                 </ul>
                 <div class="search-form">
-                     <a-form :form="form" @submit.prevent="handleSearch">
+                     <a-form @submit.prevent="handleSearch">
                       <a-input-group compact>
                         <a-select default-value="Categories" size="large" v-model="search.category" name="category">
                           <a-select-option :value="category.id" v-for="(category, index) in misc.categories" :key="index" >
@@ -40,11 +78,11 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import jQuery from 'jquery';
 export default {
     name: 'mainHeader',
       data(){
         return{
-          form: this.$form.createForm(this),
           search:{
             keyword: "",
             category: "Categories"
@@ -71,6 +109,28 @@ export default {
           logout(){
             this.$store.dispatch('user/logout');
           }
+      },
+      mounted(){
+          jQuery('#mobile-menu-toggle').on('click',function(){
+            jQuery('#mobile-nav').show()
+            let nav = jQuery('#mobile-nav .menu-content');
+            if(!nav.hasClass('slideIn')){
+                nav.addClass('slideIn').removeClass('slideOut')
+            }
+            else{
+                nav.removeClass('slideIn').addClass('slideOut')
+            }
+        })
+
+        jQuery(document).on('mouseup',function(e){
+            //$('#mobile-nav').toggle('slow','swing')
+            jQuery('#mobile-nav').hide()
+            let nav = jQuery('#mobile-nav .menu-content');
+
+            if (!nav.is(e.target) && nav.has(e.target).length === 0){
+                nav.addClass('slideOut').removeClass('slideIn')
+            }
+        })
       }
 }
 </script>

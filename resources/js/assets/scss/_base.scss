@@ -9,3 +9,7 @@ body, html{
 .inner-content{
     @apply container w-10/12 mx-auto;
 }
+
+.main{
+    @apply relative;
+}

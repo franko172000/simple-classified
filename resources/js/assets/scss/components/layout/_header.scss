@@ -4,7 +4,11 @@ header{
     .content{
         @apply container p-6 flex justify-between;
         ul{
-            @apply flex w-1/4;
+            @apply flex w-full;
+            @screen lg{
+                @apply flex w-1/4;
+            };
+
             li{
                 @apply mx-5;
                 a{
@@ -30,10 +34,28 @@ header{
                         @apply font-bold leading-8 mx-4;
                     }
                 }
+
+                &:not(.show-mobile){
+                    @apply hidden;
+                    @screen lg{
+                        @apply block;
+                    }
+                }
             }
+            
         }
         .search-form{
-            @apply w-2/5 rounded;
+            @apply w-2/5 rounded hidden;
+            @screen lg{
+                @apply block;
+            }
+        }
+
+        .actions{
+            @apply hidden;
+            @screen lg{
+                @apply block;
+            }
         }
     }
 }

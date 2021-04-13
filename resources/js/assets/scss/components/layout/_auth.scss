@@ -1,8 +1,10 @@
 #auth{
     @apply container h-screen flex;
     .bg-section{
-        @apply w-3/5 bg-center object-cover bg-no-repeat bg-cover object-cover object-center block left-0 top-0 relative flex flex-col;
-        
+        @apply w-3/5 bg-center object-cover bg-no-repeat bg-cover object-cover object-center block left-0 top-0 relative flex flex-col hidden;
+        @screen lg{
+            @apply flex;
+        }
         &::before{
             @apply absolute w-full h-full;
             background: linear-gradient(0deg, rgb(0, 68, 187, 0.5), rgb(0, 68, 187, 0.5));
@@ -42,7 +44,19 @@
         }
     }
     .form-section{
-        @apply p-10 flex flex-col w-2/5 justify-center;
+        @apply p-10 flex flex-col w-full justify-center;
+        @screen lg{
+            @apply w-2/5;
+        }
+        .logo{
+            @apply flex justify-center my-3;
+            img{
+                @apply w-40;
+            }
+            @screen lg{
+                @apply hidden;
+            }
+        }
         h2{
             @apply text-center text-4xl font-medium;
         }
