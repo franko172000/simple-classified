@@ -1,9 +1,11 @@
 import axios from 'axios'
 import store from 'store'
 import { notification } from 'ant-design-vue'
+const getUrl = window.location;
+const baseUrl = getUrl .protocol + "//" + getUrl.host + "/" ;
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8000/api/',
+  baseURL: baseUrl+'api/',
 })
 
 apiClient.interceptors.request.use(request => {
