@@ -24,15 +24,20 @@ Install dependencies
 ```bash
  php artisan migrate
 ```
+# Seed Data
+```bash
+ php artisan db:seed
+```
+# Generate Encrption key
+```bash
+ php artisan key:gen
+```
 # Install Laravel Passport
 
 ```bash
  php artisan passport:install
 ```
-# Seed Data
-```bash
- php artisan db:seed
-```
+
 # Link storage
 ```bash
  php artisan storage:link
