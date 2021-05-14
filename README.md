@@ -28,7 +28,7 @@ Install dependencies
 ```bash
  php artisan db:seed
 ```
-# Generate Encrption key
+# Generate Encryption key
 ```bash
  php artisan key:gen
 ```
