@@ -58,6 +58,10 @@ Install dependencies
 ```bash
  npm run prod
 ```
+# Run unit test
+```bash
+ vendor/bin/phpunit
+```
 
 # Run on Docker
 1. Make sure you have installed docker and docker compose
